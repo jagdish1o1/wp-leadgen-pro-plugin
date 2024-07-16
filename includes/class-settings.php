@@ -113,7 +113,11 @@ class LGP_SettingsPage
             case 'image':
                 $image_url = wp_get_attachment_url($value);
                 echo "<div class='image-preview-wrapper'>";
-                echo "<img id='{$id}_preview' src='$image_url' style='max-width:100px;max-height:100px;'>";
+                if ($image_url) {
+                    echo "<img id='{$id}_preview' src='$image_url' style='max-width:100px;max-height:100px;'>";
+                } else {
+                    echo "<img id='{$id}_preview' src='' style='max-width:100px;max-height:100px;display:none;'>";
+                }
                 echo "</div>";
                 echo "<input id='$id' type='hidden' name='listings_settings_options[$id]' value='$value' />";
                 echo "<input id='{$id}_button' type='button' class='button' value='Upload image' />";
@@ -129,6 +133,9 @@ class LGP_SettingsPage
         }
         wp_enqueue_media();
         wp_enqueue_script('lgp-settings-js', plugin_dir_url(__FILE__) . '/js/lgp-settings.js', array('jquery'), null, true);
+        wp_localize_script('lgp-settings-js', 'lgpSettings', array(
+            'defaultImagePlaceholder' => plugins_url('img/default-service-image.png', __FILE__),
+        ));
     }
 
     public static function get_custom_option($key, $default = '')

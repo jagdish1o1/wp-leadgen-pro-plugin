@@ -16,12 +16,6 @@ class LGP_ListingsCPT
         add_action('save_post_listings', array($this, 'auto_generate_custom_uri'), 10, 3);
         add_filter('term_link', array($this, 'custom_term_link'), 10, 3);
         add_action('save_post_listings', array($this, 'flush_permalinks_on_save'), 10, 3);
-
-        // Check if rankmath is there before appliying this filter.
-        // add_filter( 'rank_math/frontend/canonical', function( $canonical ) {
-        //     $url = 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-        //     return $url;
-        // });
         
     }
     public function create_cpt()
@@ -79,10 +73,8 @@ class LGP_ListingsCPT
             return;
         }
 
-        // $custom_uri_structure = get_field('custom_uri_structure', 'option');
         $custom_uri_structure = LGP_SettingsPage::get_custom_option('custom_uri_structure');
         if ($custom_uri_structure === 'state_postname') {
-            // $terms = get_the_terms($post_id, 'state');
             $state_code = get_field('state_code', $post_id);
             $city_name = get_field('city_name', $post_id);
             if (!empty($state_code) && !empty($city_name)) {

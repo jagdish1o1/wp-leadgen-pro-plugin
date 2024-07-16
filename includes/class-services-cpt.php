@@ -1,6 +1,7 @@
 <?php
 
 include_once plugin_dir_path(__FILE__) . 'helper-functions.php';
+include_once plugin_dir_path(__FILE__) . 'class-settings.php';
 
 class LGP_ServicesCPT
 {
@@ -13,9 +14,6 @@ class LGP_ServicesCPT
         add_filter('the_content', array($this, 'append_acf_fields_to_content'));
         add_filter('the_title', array($this, 'remove_single_services_title'), 10, 2);
         add_action('wp_enqueue_scripts', array($this, 'custom_css_for_services'));
-
-        // Filter posts for archieve page on state
-        add_action('pre_get_posts', array($this, 'filter_state_archive_query'));
 
         // Display cities on state archieve before all services
         add_action('pre_get_posts', array($this, 'display_listings_before_posts'));
@@ -41,9 +39,7 @@ class LGP_ServicesCPT
     function set_default_featured_image_from_plugin($post_id)
     {
         if (!has_post_thumbnail($post_id)) {
-            $default_image = get_field('default_service_image', 'option');
-
-            // Check if the ACF field returns a valid image ID
+            $default_image = LGP_SettingsPage::get_custom_option('default_service_image');
             if ($default_image && isset($default_image['ID'])) {
                 $default_image_id = $default_image['ID'];
                 set_post_thumbnail($post_id, $default_image_id);
@@ -110,13 +106,6 @@ class LGP_ServicesCPT
                 </div>
                 <?php
             });
-        }
-    }
-
-    function filter_state_archive_query($query)
-    {
-        if (!is_admin() && $query->is_main_query() && is_tax('state')) {
-            $query->set('post_type', 'services');
         }
     }
 

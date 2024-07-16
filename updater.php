@@ -90,10 +90,15 @@ class LGP_Updater
 
 		if (property_exists($transient, 'checked')) { // Check if transient has a checked property
 
-			if ($checked = $transient->checked) { // Did Wordpress check for updates?
-
+			$checked = $transient->checked;
+			if ($checked) { // Did Wordpress check for updates?
+				
 				$this->get_repository_info(); // Get the repo info
 
+				if (!$checked[$this->basename]) {
+					return $transient;
+				}
+				
 				$out_of_date = version_compare($this->github_response['tag_name'], $checked[$this->basename], 'gt'); // Check if we're out of date
 
 				if ($out_of_date) {

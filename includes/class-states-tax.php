@@ -15,6 +15,9 @@ class LGP_StateTax
         add_filter('template_include', array($this, 'load_custom_state_template'));
 
         add_action('created_state', array($this, 'auto_generate_state_custom_uri'), 10, 2);
+        
+        // Filter posts for archieve page on state
+        add_action('pre_get_posts', array($this, 'filter_state_archive_query'));
 
     }
 
@@ -87,6 +90,13 @@ class LGP_StateTax
         if (!is_wp_error($term)) {
             $custom_uri = $term->slug;
             update_term_meta($term_id, 'custom_uri', $custom_uri);
+        }
+    }
+
+    function filter_state_archive_query($query)
+    {
+        if (!is_admin() && $query->is_main_query() && is_tax('state')) {
+            $query->set('post_type', 'services');
         }
     }
 
