@@ -1,0 +1,23 @@
+{
+    "key": "group_state_fields",
+    "title": "State Fields",
+    "fields": [
+        {
+            "key": "field_state_custom_uri",
+            "label": "Custom URI",
+            "name": "custom_uri",
+            "type": "text",
+            "instructions": "Enter the custom URI for this state"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "state"
+            }
+        ]
+    ],
+    "show_in_rest": 1
+}

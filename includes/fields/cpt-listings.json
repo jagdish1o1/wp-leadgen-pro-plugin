@@ -1,0 +1,47 @@
+{
+    "key": "group_66798d2db49f1",
+    "title": "Listing Fields",
+    "fields": [
+        {
+            "key": "field_66798d2e214a0",
+            "label": "Service Providers",
+            "name": "service_providers",
+            "type": "post_object",
+            "post_type": [
+                "services"
+            ],
+            "return_format": "id",
+            "multiple": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_66798db2214a1",
+            "label": "State Code",
+            "name": "state_code",
+            "type": "text"
+        },
+        {
+            "key": "field_city_name",
+            "label": "City Name",
+            "name": "city_name",
+            "type": "text"
+        },
+        {
+            "key": "field_66798db2214a2",
+            "label": "Custom URI",
+            "name": "custom_uri",
+            "type": "text",
+            "instructions": "Enter the custom URI for this listing"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "listings"
+            }
+        ]
+    ],
+    "show_in_rest": 1
+}

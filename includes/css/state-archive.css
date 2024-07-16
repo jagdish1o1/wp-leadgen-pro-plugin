@@ -1,0 +1,87 @@
+.state-container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.state-box {
+    background-color: white;
+    padding: 3rem;
+    margin: 2rem 0px;
+    box-shadow: 5px 5px 20px #8080808a;
+}
+
+.services {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.services h1 {
+    font-weight: bold;
+}
+
+.cities {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 150px;
+    overflow: scroll;
+}
+a.city-name.button {
+    height: fit-content;
+}
+.businesses {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-columns: 1fr;
+    gap: 30px;
+}
+
+.single-business {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    box-shadow: 0px 1px 9px #8080806b;
+}
+
+.single-business-image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.single-business-image img, .single-business-content a {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.single-business-content {
+    padding: 20px;
+}
+
+.single-business-content a {
+    text-decoration: none;
+}
+
+.single-business-content h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+@media only screen and (max-width:900px) {
+
+    .state-container {
+        width: auto;
+    }
+
+    .businesses {
+        grid-template-columns: 1fr;
+    }
+    .state-box {
+        padding: 2rem;
+    }
+    
+
+}

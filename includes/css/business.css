@@ -1,0 +1,115 @@
+.service {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.service-image {
+    flex: .5;
+}
+
+.service-content {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.service-image img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.service-content h1 {
+    margin: inherit;
+}
+
+.service-content address,
+.service-content p {
+    margin: inherit !important;
+}
+
+.service-content .rating {
+    display: flex;
+    gap: 10px;
+}
+
+.service .service-content svg {
+    width: 16px;
+    height: 16px;
+}
+
+.service .service-content .button-group {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.related-services {
+    margin-top: 50px;
+
+}
+
+.related-services h2 {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.related-services .services {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.related-service {
+    flex: 1 0 21%;
+    background-color: whitesmoke;
+}
+
+.related-service-image {
+    height: 200px;
+    width: 100%;
+}
+
+.related-service-image a {
+    height: 100%;
+}
+
+.related-service-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.related-service .related-service-content {
+    background-color: whitesmoke;
+    padding: 20px;
+    text-align: center;
+}
+
+.related-service .related-service-content a {
+    text-decoration: none;
+}
+
+.related-service h3 {
+    font-size: 18px;
+    font-weight: 800;
+    margin: inherit;
+}
+
+
+@media only screen and (max-width:768px) {
+    .service {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .related-services .services {
+        display: flex;
+        flex-direction: column;
+    }
+
+}
