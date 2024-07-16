@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Leadgen Pro
+ * Plugin Name: WP Leadgen Pro
  * Description: Plugin to integration with wp leadgen pro platform.
  * Version: 1.0.1
  * Author: jagdish.co
