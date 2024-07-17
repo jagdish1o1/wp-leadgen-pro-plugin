@@ -13,7 +13,6 @@ class LGP_ListingsCPT
         // URL rewriting Rules
         add_filter('post_type_link', array($this, 'listings_post_type_link'), 10, 2);
         add_filter('rewrite_rules_array', array($this, 'custom_rewrite_rules'));
-        // add_action('save_post_listings', array($this, 'auto_generate_custom_uri'), 10, 3);
         add_action('save_post_listings', array($this, 'flush_permalinks_on_save'), 10, 3);
         
     }
@@ -75,13 +74,6 @@ class LGP_ListingsCPT
         }
 
     }
-
-    public function get_acf_fields($object)
-    {
-        $fields = get_fields($object['id']);
-        return !empty($fields) ? $fields : [];
-    }
-
 
     public function listings_post_type_link($post_link, $post)
     {

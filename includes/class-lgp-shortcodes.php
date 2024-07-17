@@ -6,8 +6,9 @@ class LGP_Shortcodes
     {
         add_shortcode('all_states', array($this, 'all_states_callback'));
         add_shortcode('all_cities', array($this, 'all_cities_callback'));
-        add_shortcode('service_providers_list', array($this, 'service_providers_list_callback'));
         add_shortcode('city_search', array($this, 'city_search_callback'));
+        add_shortcode('service_providers_list', array($this, 'service_providers_list_callback'));
+        add_shortcode('total_service_providers', array($this, 'total_service_providers_callback'));
         add_action('wp_enqueue_scripts', array($this, 'custom_css_for_listings'));
         
     }
@@ -125,6 +126,14 @@ class LGP_Shortcodes
             return 'city-search.php does not exists';
         }
 
+    }
+
+    public function total_service_providers_callback() {
+        if (is_singular('listings')) {
+            $post_id = get_the_ID();
+            $service_providers = get_field('service_providers', $post_id);
+            return strval(count($service_providers));
+        }
     }
 
     public function custom_css_for_listings()
