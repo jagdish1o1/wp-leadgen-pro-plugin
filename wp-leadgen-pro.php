@@ -3,8 +3,8 @@
  * Plugin Name: WP Leadgen Pro
  * Description: Plugin to integration with wp leadgen pro platform.
  * Version: 1.0.1
- * Author: jagdish.co
- * Author URI: https://jagdish.co
+ * Author: WP Leadgen Pro
+ * Author URI: https://wpleadgen.pro
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: leadgenpro
