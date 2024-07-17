@@ -13,8 +13,7 @@ class LGP_ListingsCPT
         // URL rewriting Rules
         add_filter('post_type_link', array($this, 'listings_post_type_link'), 10, 2);
         add_filter('rewrite_rules_array', array($this, 'custom_rewrite_rules'));
-        add_action('save_post_listings', array($this, 'auto_generate_custom_uri'), 10, 3);
-        add_filter('term_link', array($this, 'custom_term_link'), 10, 3);
+        // add_action('save_post_listings', array($this, 'auto_generate_custom_uri'), 10, 3);
         add_action('save_post_listings', array($this, 'flush_permalinks_on_save'), 10, 3);
         
     }
@@ -67,27 +66,6 @@ class LGP_ListingsCPT
         flush_rewrite_rules();
     }
 
-    public function auto_generate_custom_uri($post_id, $post, $update)
-    {
-        if ('publish' !== $post->post_status) {
-            return;
-        }
-
-        $custom_uri_structure = LGP_SettingsPage::get_custom_option('custom_uri_structure');
-        if ($custom_uri_structure === 'state_postname') {
-            $state_code = get_field('state_code', $post_id);
-            $city_name = get_field('city_name', $post_id);
-            if (!empty($state_code) && !empty($city_name)) {
-                $custom_uri = slugify($state_code) . '/' . slugify($city_name);
-                update_field('custom_uri', $custom_uri, $post_id);
-            }
-        } else {
-            delete_field('custom_uri', $post_id);
-        }
-
-        flush_rewrite_rules();
-    }
-
     public function register_fields()
     {
         $json_file = plugin_dir_path(__FILE__) . 'fields/cpt-listings.json';
@@ -116,16 +94,6 @@ class LGP_ListingsCPT
         return $post_link;
     }
 
-    public function custom_term_link($term_link, $term, $taxonomy)
-    {
-        if ('state' === $taxonomy) {
-            $custom_uri = get_term_meta($term->term_id, 'custom_uri', true);
-            if ($custom_uri) {
-                return home_url($custom_uri);
-            }
-        }
-        return $term_link;
-    }
     public function custom_rewrite_rules($rules)
     {
         $new_rules = array();

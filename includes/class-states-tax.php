@@ -18,6 +18,7 @@ class LGP_StateTax
         
         // Filter posts for archieve page on state
         add_action('pre_get_posts', array($this, 'filter_state_archive_query'));
+        add_filter('term_link', array($this, 'custom_term_link'), 10, 3);
 
     }
 
@@ -98,6 +99,18 @@ class LGP_StateTax
         if (!is_admin() && $query->is_main_query() && is_tax('state')) {
             $query->set('post_type', 'services');
         }
+    }
+
+
+    public function custom_term_link($term_link, $term, $taxonomy)
+    {
+        if ('state' === $taxonomy) {
+            $custom_uri = get_term_meta($term->term_id, 'custom_uri', true);
+            if ($custom_uri) {
+                return home_url($custom_uri);
+            }
+        }
+        return $term_link;
     }
 
 }
