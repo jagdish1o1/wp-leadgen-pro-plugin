@@ -161,6 +161,7 @@ class LGP_ServicesCPT
             $state = $terms[0];
             $businesses = $this->get_businesses($state->term_id, $post_id);
             $url = get_field('url');
+            $phone_number = LGP_SettingsPage::get_custom_option('phone_number');
 
             ob_start();
             ?>
@@ -183,7 +184,7 @@ class LGP_ServicesCPT
                     <div class="button-group">
                         <a href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener noreferrer"
                             class="button">Direction</a>
-                        <a href="tel:+<?php echo the_field('phone_number', 'option'); ?>" target="_blank" rel="noopener noreferrer"
+                        <a href="tel:+<?php echo $phone_number; ?>" target="_blank" rel="noopener noreferrer"
                             class="button">Call Now</a>
                     </div>
                 </div>
