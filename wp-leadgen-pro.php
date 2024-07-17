@@ -28,6 +28,7 @@ include_once plugin_dir_path(__FILE__) . 'includes/class-listings-cpt.php';
 include_once plugin_dir_path(__FILE__) . 'includes/class-services-cpt.php';
 include_once plugin_dir_path(__FILE__) . 'includes/class-states-tax.php';
 include_once plugin_dir_path(__FILE__) . 'includes/class-settings.php';
+include_once plugin_dir_path(__FILE__) . 'includes/class-lgp-shortcodes.php';
 include_once plugin_dir_path(__FILE__) . 'includes/modifier/rankmath.php';
 include_once plugin_dir_path(__FILE__) . 'activate.php';
 include_once plugin_dir_path(__FILE__) . 'deactivate.php';
@@ -54,6 +55,9 @@ function leadgenpro_init()
         
         $settings = new LGP_SettingsPage();
         $settings->register();
+        
+        $shortcodes = new LGP_Shortcodes();
+        $shortcodes->register();
         
         $modifier = new LGP_RankMath_Modifier();
         $modifier->register();
