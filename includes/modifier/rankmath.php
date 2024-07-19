@@ -7,10 +7,6 @@ if (!defined('WPINC')) {
 class LGP_RankMath_Modifier {
     
     public function register() {
-        add_action('plugins_loaded', array($this, 'init'));
-    }
-
-    public function init() {
         if ($this->is_rankmath_active()) {
             add_filter('rank_math/frontend/canonical', array($this, 'lgp_rankmath_canonical'));
         }
