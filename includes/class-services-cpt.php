@@ -17,6 +17,9 @@ class LGP_ServicesCPT
 
         // Display cities on state archieve before all services
         add_action('pre_get_posts', array($this, 'display_listings_before_posts'));
+        
+        // REST API Response if has certain query
+        add_action('pre_get_posts', array($this, 'pre_get_posts_callback'));
 
         // change feature image on state archive        
         add_filter('post_thumbnail_html', array($this, 'replace_featured_image_with_acf'), 10, 5);
@@ -25,6 +28,7 @@ class LGP_ServicesCPT
 
         // set default service image 
         add_action('save_post_services', array($this, 'set_default_featured_image_from_plugin'));
+
 
     }
 
@@ -383,6 +387,22 @@ class LGP_ServicesCPT
         flush_rewrite_rules();
 
         return $post_id;
+    }
+
+    function pre_get_posts_callback( $query ) {
+        // do not modify queries in the admin
+        if( is_admin() ) {
+            return $query;
+        }
+        // only modify queries for ‘job' post type
+        if( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == "services") {
+            // allow the url to alter the query
+            if( isset($_GET['cid']) ) {
+                $query->set('meta_key', 'cid');
+                $query->set('meta_value', $_GET['cid']);
+            }
+        }
+        return $query;
     }
 
 
