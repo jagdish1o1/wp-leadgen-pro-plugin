@@ -7,17 +7,18 @@ class LGP_SettingsPage
         add_action('admin_menu', array($this, 'custom_settings_page'));
         add_action('admin_init', array($this, 'custom_settings_init'));
         add_action('admin_enqueue_scripts', array($this, 'custom_settings_enqueue_scripts'));
+        add_action('wp_ajax_update_custom_uri', array($this, 'update_custom_uri'));
     }
 
     public function custom_settings_page()
     {
         add_submenu_page(
             'edit.php?post_type=listings',
-            'Listings Settings',          
-            'Settings',                   
-            'manage_options',             
-            'listings-settings',          
-            array($this, 'listings_settings_page_html') 
+            'Listings Settings',
+            'Settings',
+            'manage_options',
+            'listings-settings',
+            array($this, 'listings_settings_page_html')
         );
     }
 
@@ -36,6 +37,13 @@ class LGP_SettingsPage
                 submit_button('Save Settings');
                 ?>
             </form>
+            <div class="">
+                <p><strong>Update Custom URI</strong></p>
+                <p>Click the below button to fix redirect issue in google search console.</p> 
+                <p>This only required if you've created the site using WP Leadgen Pro v1.0.6 or below.</p>
+                <button id="update-custom-uri" class="button button-primary">Update Custom URI</button>
+                <p style="color:red;">Note: Please don't do multiple times, it only require once.</p>
+            </div>
         </div>
         <?php
     }
@@ -134,13 +142,35 @@ class LGP_SettingsPage
         wp_enqueue_media();
         wp_enqueue_script('lgp-settings-js', plugin_dir_url(__FILE__) . '/js/lgp-settings.js', array('jquery'), null, true);
         wp_localize_script('lgp-settings-js', 'lgpSettings', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
             'defaultImagePlaceholder' => plugins_url('img/default-service-image.png', __FILE__),
-        ));
+        )
+        );
     }
 
     public static function get_custom_option($key, $default = '')
     {
         $options = get_option('listings_settings_options');
         return isset($options[$key]) ? $options[$key] : $default;
+    }
+
+
+    public function update_custom_uri()
+    {
+        $args = array(
+            'post_type' => 'listings',
+            'post_status' => 'publish',
+            'numberposts' => -1
+        );
+        $listings = get_posts($args);
+
+        foreach ($listings as $listing) {
+            $custom_uri = get_post_meta($listing->ID, 'custom_uri', true);
+            if ($custom_uri && substr($custom_uri, -1) !== '/') {
+                update_post_meta($listing->ID, 'custom_uri', $custom_uri . '/');
+            }
+        }
+
+        wp_send_json_success(array('message' => 'Custom URI updated for all published listings.'));
     }
 }

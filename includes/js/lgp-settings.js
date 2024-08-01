@@ -27,4 +27,15 @@ jQuery(document).ready(function($) {
         $('#' + id).val('');
         $('#' + id + '_id').text('');
     });
+
+    // Updating acf custom_uri field in listings
+    $('#update-custom-uri').on('click', function() {
+        if (confirm('Are you sure you want to update the custom URI for all published listings?')) {
+            $.post(lgpSettings.ajaxUrl, {
+                action: 'update_custom_uri'
+            }, function(response) {
+                alert(response.message);
+            });
+        }
+    });
 });
