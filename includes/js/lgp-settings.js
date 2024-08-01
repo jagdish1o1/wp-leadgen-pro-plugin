@@ -34,7 +34,7 @@ jQuery(document).ready(function($) {
             $.post(lgpSettings.ajaxUrl, {
                 action: 'update_custom_uri'
             }, function(response) {
-                alert(response.message);
+                alert(response.data.message);
             });
         }
     });

@@ -140,7 +140,7 @@ class LGP_SettingsPage
             return;
         }
         wp_enqueue_media();
-        wp_enqueue_script('lgp-settings-js', plugin_dir_url(__FILE__) . '/js/lgp-settings.js', array('jquery'), null, true);
+        wp_enqueue_script('lgp-settings-js', plugin_dir_url(__FILE__) . 'js/lgp-settings.js', array('jquery'), null, true);
         wp_localize_script('lgp-settings-js', 'lgpSettings', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'defaultImagePlaceholder' => plugins_url('img/default-service-image.png', __FILE__),
