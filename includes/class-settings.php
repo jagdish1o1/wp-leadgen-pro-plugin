@@ -170,7 +170,8 @@ class LGP_SettingsPage
                 update_post_meta($listing->ID, 'custom_uri', $custom_uri . '/');
             }
         }
-
+        // Remove permalink cache
+        flush_rewrite_rules();
         wp_send_json_success(array('message' => 'Custom URI updated for all published listings.'));
     }
 }

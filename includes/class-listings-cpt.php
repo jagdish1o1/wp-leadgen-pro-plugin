@@ -99,6 +99,7 @@ class LGP_ListingsCPT
         foreach ($listings as $listing) {
             $custom_uri = get_post_meta($listing->ID, 'custom_uri', true);
             if ($custom_uri) {
+                $custom_uri = untrailingslashit($custom_uri); // Ensure no trailing slash
                 $new_rules[$custom_uri . '/?$'] = 'index.php?post_type=listings&p=' . $listing->ID;
             }
         }
