@@ -39,7 +39,7 @@ class LGP_SettingsPage
             </form>
             <div class="">
                 <p><strong>Update Custom URI</strong></p>
-                <p>Click the below button to fix redirect issue in google search console.</p> 
+                <p>Click the below button to fix redirect issue in google search console.</p>
                 <p>This only required if you've created the site using WP Leadgen Pro v1.0.6 or below.</p>
                 <button id="update-custom-uri" class="button button-primary">Update Custom URI</button>
                 <p style="color:red;">Note: Please don't do multiple times, it only require once.</p>
@@ -67,7 +67,8 @@ class LGP_SettingsPage
         $fields = array(
             'phone_number' => array('Phone Number', 'number', 'Only add number without any prefix or space like this: 18583410290'),
             'custom_uri_structure' => array('Custom URI Structure', 'select', array('state_postname' => 'State/City Name', 'default' => 'Default')),
-            'default_service_image' => array('Default Businesses Image', 'image')
+            'default_service_image' => array('Default Businesses Image', 'image'),
+            'services_provider_list_cta' => array('Enable/Disable Service Provider List CTA', 'true_false', array('show' => 'Show CTA', 'hide' => 'Hide CTA')),
         );
 
         foreach ($fields as $id => $field) {
@@ -98,6 +99,7 @@ class LGP_SettingsPage
 
     public function listings_settings_field_cb($args)
     {
+
         $options = get_option('listings_settings_options');
         $id = $args['label_for'];
         $type = $args['type'];
@@ -111,6 +113,14 @@ class LGP_SettingsPage
                 }
                 break;
             case 'select':
+                echo "<select id='$id' name='listings_settings_options[$id]'>";
+                foreach ($args['options'] as $key => $label) {
+                    $selected = ($value === $key) ? 'selected' : '';
+                    echo "<option value='$key' $selected>$label</option>";
+                }
+                echo "</select>";
+                break;
+            case 'true_false':
                 echo "<select id='$id' name='listings_settings_options[$id]'>";
                 foreach ($args['options'] as $key => $label) {
                     $selected = ($value === $key) ? 'selected' : '';
@@ -141,10 +151,13 @@ class LGP_SettingsPage
         }
         wp_enqueue_media();
         wp_enqueue_script('lgp-settings-js', plugin_dir_url(__FILE__) . 'js/lgp-settings.js', array('jquery'), null, true);
-        wp_localize_script('lgp-settings-js', 'lgpSettings', array(
-            'ajaxUrl' => admin_url('admin-ajax.php'),
-            'defaultImagePlaceholder' => plugins_url('img/default-service-image.png', __FILE__),
-        )
+        wp_localize_script(
+            'lgp-settings-js',
+            'lgpSettings',
+            array(
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'defaultImagePlaceholder' => plugins_url('img/default-service-image.png', __FILE__),
+            )
         );
     }
 

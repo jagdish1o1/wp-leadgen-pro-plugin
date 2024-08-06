@@ -18,7 +18,7 @@
                 </rating>
             </div>
             <div class="service-cta">
-                <a href="tel:+<?php echo esc_attr(LGP_SettingsPage::get_custom_option('phone_number')); ?>" class="button">
+                <a href="tel:+<?php echo esc_attr(LGP_SettingsPage::get_custom_option('phone_number')); ?>" class="button" <?php echo LGP_SettingsPage::get_custom_option('services_provider_list_cta') == 'hide' ? 'style="display:none;"' : '' ?> >
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="white"
                         version="1.1" id="Capa_1" width="20px" height="20px" viewBox="0 0 342.514 342.514"
                         xml:space="preserve">

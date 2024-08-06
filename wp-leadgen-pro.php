@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Leadgen Pro
  * Description: Plugin to integration with wp leadgen pro platform.
- * Version: 1.0.10
+ * Version: 1.0.11
  * Author: WP Leadgen Pro
  * Author URI: https://wpleadgen.pro
  * License: GPLv2 or later
@@ -15,13 +15,13 @@ if (!defined('ABSPATH')) {
 }
 
 
-if( ! class_exists( 'LGP_Updater' ) ){
-	include_once( plugin_dir_path( __FILE__ ) . 'updater.php' );
+if (!class_exists('LGP_Updater')) {
+    include_once (plugin_dir_path(__FILE__) . 'updater.php');
 }
 
-$updater = new LGP_Updater( __FILE__ );
-$updater->set_username( 'jagdish1o1' );
-$updater->set_repository( 'wp-leadgen-pro-plugin' );
+$updater = new LGP_Updater(__FILE__);
+$updater->set_username('jagdish1o1');
+$updater->set_repository('wp-leadgen-pro-plugin');
 $updater->initialize();
 
 include_once plugin_dir_path(__FILE__) . 'includes/class-listings-cpt.php';
@@ -42,7 +42,8 @@ function leadgenpro_init()
 {
     if (!class_exists('ACF')) {
 
-        include_once plugin_dir_path(__FILE__) . 'includes/acf/acf.php';
+        $acfVersion = 'v6.3.5';
+        include_once plugin_dir_path(__FILE__) . 'includes/acf-' . $acfVersion . '/acf.php';
 
         $statesTax = new LGP_StateTax();
         $statesTax->register();
@@ -52,16 +53,15 @@ function leadgenpro_init()
 
         $services = new LGP_ServicesCPT();
         $services->register();
-        
+
         $settings = new LGP_SettingsPage();
         $settings->register();
-        
+
         $shortcodes = new LGP_Shortcodes();
         $shortcodes->register();
-        
+
         $modifier = new LGP_RankMath_Modifier();
         $modifier->register();
-        
 
         add_filter('acf/settings/show_admin', '__return_false');
 
