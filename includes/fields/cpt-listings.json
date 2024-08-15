@@ -15,6 +15,12 @@
             "ui": 1
         },
         {
+            "key": "field_niche_name",
+            "label": "Niche",
+            "name": "niche_name",
+            "type": "text"
+        },
+        {
             "key": "field_66798db2214a1",
             "label": "State Code",
             "name": "state_code",

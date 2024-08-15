@@ -65,6 +65,9 @@ class LGP_SettingsPage
     private function add_settings_fields()
     {
         $fields = array(
+            'niche_name' => array('Default Niche Name', 'text', 'Default niche name / service name to use if not available.'),
+            'country_name' => array('Default Country Name', 'text', 'Default country name to use if not available.'),
+            'country_code' => array('Default Country Code', 'text', 'Default country code to use if not available.'),
             'phone_number' => array('Phone Number', 'number', 'Only add number without any prefix or space like this: 18583410290'),
             'custom_uri_structure' => array('Custom URI Structure', 'select', array('state_postname' => 'State/City Name', 'default' => 'Default')),
             'default_service_image' => array('Default Businesses Image', 'image'),
@@ -106,6 +109,12 @@ class LGP_SettingsPage
         $value = isset($options[$id]) ? $options[$id] : '';
 
         switch ($type) {
+            case 'text':
+                echo "<input type='text' id='$id' name='listings_settings_options[$id]' value='$value' />";
+                if (isset($args['description'])) {
+                    echo "<p class='description'>{$args['description']}</p>";
+                }
+                break;
             case 'number':
                 echo "<input type='number' id='$id' name='listings_settings_options[$id]' value='$value' min='10' />";
                 if (isset($args['description'])) {
